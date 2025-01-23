@@ -1,0 +1,6 @@
+---
+- name: Deploy Jenkins service on EC2
+  hosts: jenkins-ec2
+  become: true
+  roles:
+    - role: jenkins

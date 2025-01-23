@@ -1,3 +1,9 @@
+variable "service_name" {
+  type = string
+  description = "Service name that will be deployed"
+}
+
+
 variable "network_interface_id" {
   type = string
   default = "network_id_from_aws"
@@ -13,6 +19,6 @@ variable "instance_type" {
     default = "t2.micro"
 }
 
-variable "ssh_public_file" {
-  default = "/home/iris/.ssh/aws-ec2.pub"
+variable "ssh_private_key" {
+  default = "/home/iris/.ssh/aws-ec2"
 }
