@@ -1,0 +1,6 @@
+
+jenkins_uid: 992
+
+jenkins_init_groovy_dir: /var/lib/jenkins/init.groovy.d
+jenkins_init_username: tht213it
+jenkins_init_pwd: tht213it

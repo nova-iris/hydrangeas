@@ -29,6 +29,22 @@
     name: jenkins
     state: present
 
+- name: Create some directories
+  file:
+    path: "{{ jenkins_init_groovy_dir }}"
+    state: directory
+    owner: "{{ jenkins_uid }}"
+    group: "{{ jenkins_uid }}"
+    mode: "755"
+
+- name: Place basic security script in groovy directory
+  template:
+    src: "templates/basic-security.groovy.j2"
+    dest: "/var/lib/jenkins/init.groovy.d/basic-security.groovy"
+    mode: "644"
+    owner: "{{ jenkins_uid }}"
+    group: "{{ jenkins_uid }}"
+
 - name: Enable Jenkins service
   systemd:
     name: jenkins
