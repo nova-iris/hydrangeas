@@ -50,3 +50,12 @@
     name: jenkins
     enabled: yes
     state: started
+
+- name: Download jenkins cli into vagrant home directory 
+  get_url:
+    url: "http://localhost:8080/jnlpJars/jenkins-cli.jar"
+    dest: "~/"
+    mode: '0777'
+  retries: 5
+  delay: 5
+  register: result   

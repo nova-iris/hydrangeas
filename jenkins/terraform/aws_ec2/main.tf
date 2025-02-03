@@ -1,6 +1,6 @@
 
 resource "local_file" "ansible_inventory" {
-  content = templatefile("${path.module}/templates/inventory.tftpl",
+  content = templatefile("${path.module}/../templates/ansible_inventory.tftpl",
     {
       ip = aws_instance.ec2_instance.public_ip
       service_name = var.service_name
@@ -8,5 +8,5 @@ resource "local_file" "ansible_inventory" {
       ssh_private_key_file = var.ssh_private_key
     }
   )
-  filename = "${path.module}/../ansible/inventory.yaml"
+  filename = "${path.module}/../../ansible/inventory.yaml"
 }
