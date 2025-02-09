@@ -1,0 +1,1 @@
+kubeadm join 172.31.16.70:6443 --token 25fexg.qp0r2e9s91utfwjf --discovery-token-ca-cert-hash sha256:5f38e3d57ff81b5e376b220ae3abd8c9860a8a73d7618284362749b6c3db6133 

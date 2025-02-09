@@ -1,0 +1,14 @@
+- name: Join Kubernetes Worker Nodes
+  hosts: worker_servers
+  become: true
+  tasks:
+    - name: Copy join command from local machine to workers
+      copy:
+        src: "./kube_join_command.sh"  # From local machine
+        dest: "/tmp/kube_join_command.sh"
+        mode: "0755"
+
+    - name: Run the join command
+      command: bash /tmp/kube_join_command.sh
+      args:
+        creates: /etc/kubernetes/kubelet.conf
