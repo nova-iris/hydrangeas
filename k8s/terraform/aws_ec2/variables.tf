@@ -17,7 +17,7 @@ variable "service_name" {
 
 variable "ami" {
     type = string
-    # default = "ami-0df8c184d5f6ae949" # Amazon Linux 2023
+    default = "ami-0df8c184d5f6ae949" # Amazon Linux 2023
 }
 
 variable "instance_type" {
@@ -28,5 +28,11 @@ variable "instance_type" {
 variable "ssh_private_key" {
   type = string
   description = "Path to private ssh key"
-  # default = "/home/iris/.ssh/aws-ec2"
+  default = "/home/iris/.ssh/aws-ec2"
+}
+
+variable "worker_node_count" {
+  type = number
+  description = "Number of worker nodes"
+  default = 2
 }
