@@ -8,8 +8,8 @@ module "k8s_vpc" {
 }
 
 # Create ALB
-module "node_lb" {
-  source = "../../../terraform_modules/load_balancer/alb"
+module "nodes_nlb" {
+  source = "../../../terraform_modules/load_balancer/nlb"
   name_prefix = var.service_name
   ec2_ids = concat(module.worker_nodes[*].instance_id, [module.controlplane.instance_id])
   vpc_id = module.k8s_vpc.vpc_id
