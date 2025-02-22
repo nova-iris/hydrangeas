@@ -42,3 +42,22 @@ variable "worker_node_count" {
   description = "Number of worker nodes"
   default = 2
 }
+
+# ALB
+variable "cidr_block" {
+  type = string
+  description = "VPC CIDR Block"
+  default = "10.0.0.0/16"
+}
+
+variable "public_subnet_cidrs" {
+  type = list(string)
+  description = "Public subnet CIDR Blocks"
+  default = []
+}
+
+variable "private_subnet_cidrs" {
+  type = list(string)
+  description = "Private subnet CIDR Blocks"
+  default = []
+}

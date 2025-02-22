@@ -5,42 +5,28 @@ resource "aws_key_pair" "ec2_key" {
 
 resource "aws_security_group" "ec2_sg" {
   name = "${var.service_name}-${var.instance_name}-sg"
-  ingress {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+  description = "Security group for EC2 instances ${var.service_name}-${var.instance_name}"
+  vpc_id = var.vpc_id
+   dynamic "ingress" {
+    for_each = var.security_group_ingress
+    content {
+      from_port       = ingress.value.from_port
+      to_port         = ingress.value.to_port
+      protocol        = ingress.value.protocol
+      cidr_blocks     = ingress.value.cidr_blocks
+      security_groups = ingress.value.security_groups
+    }
   }
 
-  ingress {
-    from_port   = 443
-    to_port     = 443
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+  dynamic "egress" {
+    for_each = var.security_group_egress
+    content {
+      from_port   = egress.value.from_port
+      to_port     = egress.value.to_port
+      protocol    = egress.value.protocol
+      cidr_blocks = egress.value.cidr_blocks
+    }
   }
-
-  ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  ingress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-#   vpc_id = data.aws_vpc.default.id
 }
 
 resource "aws_instance" "this" {
@@ -48,15 +34,7 @@ resource "aws_instance" "this" {
   instance_type = var.instance_type
   key_name      = aws_key_pair.ec2_key.key_name
   vpc_security_group_ids = [ aws_security_group.ec2_sg.id ]
-
-
-  credit_specification {
-    cpu_credits = "unlimited"
-  }
-
+  subnet_id = var.subnet_id
+  
   tags = var.tags
-}
-
-output "public_ip" {
-  value = aws_instance.this.public_ip
 }

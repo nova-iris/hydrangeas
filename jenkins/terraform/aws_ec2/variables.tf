@@ -20,6 +20,12 @@ variable "ami" {
     # default = "ami-0df8c184d5f6ae949" # Amazon Linux 2023
 }
 
+variable "instance_user" {
+  type = string
+  description = "EC2 Instance default user"
+  default = "ec2-user"
+}
+
 variable "instance_type" {
     type = string
     default = "t2.micro"
